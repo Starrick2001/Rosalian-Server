@@ -3,7 +3,8 @@ import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-vali
 export class UsersDTO {
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 
   @IsOptional()
   @IsString()
@@ -19,7 +20,8 @@ export class UsersDTO {
   given_name: string;
 
   @IsString()
-  locale: string;
+  @IsOptional()
+  locale?: string;
 
   @IsString()
   nickname: string;
