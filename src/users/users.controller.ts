@@ -7,10 +7,11 @@ import { Response } from 'express';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  @Get(':email')
-  async getUser(@Res() res: Response, @Param('email') email: string) {
+  @Get(':sub')
+  async getUser(@Res() res: Response, @Param('sub') sub: string) {
     try {
-      res.status(200).json(await this.userService.findOne(email));
+      const user = await this.userService.findOne(sub);
+      res.status(200).json(user);
     } catch (err) {
       res.status(500).json({ err });
     }

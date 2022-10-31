@@ -12,17 +12,7 @@ export class UsersService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
 
   create(createUserDto: UsersDTO): Promise<User> {
-    const user = this.usersRepository.create({
-      name: createUserDto.name,
-      email: createUserDto.email,
-      email_verified: createUserDto.email_verified,
-      family_name: createUserDto.family_name,
-      given_name: createUserDto.given_name,
-      locale: createUserDto.locale,
-      nickname: createUserDto.nickname,
-      picture: createUserDto.picture,
-      sub: createUserDto.sub,
-    });
+    const user = this.usersRepository.create(createUserDto);
 
     return this.usersRepository.save(user);
   }
@@ -31,10 +21,10 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  findOne(email: string): Promise<User> {
+  findOne(sub: string): Promise<User> {
     return this.usersRepository.findOne({
       where: {
-        email,
+        sub,
       },
     });
   }
