@@ -12,11 +12,17 @@ export class UsersService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
 
   create(createUserDto: UsersDTO): Promise<User> {
-    const user = new User();
-
-    user.name = createUserDto.name;
-    user.email = createUserDto.email;
-    user.password = createUserDto.password;
+    const user = this.usersRepository.create({
+      name: createUserDto.name,
+      email: createUserDto.email,
+      email_verified: createUserDto.email_verified,
+      family_name: createUserDto.family_name,
+      given_name: createUserDto.given_name,
+      locale: createUserDto.locale,
+      nickname: createUserDto.nickname,
+      picture: createUserDto.picture,
+      sub: createUserDto.sub,
+    });
 
     return this.usersRepository.save(user);
   }
@@ -27,7 +33,9 @@ export class UsersService {
 
   findOne(email: string): Promise<User> {
     return this.usersRepository.findOne({
-      email: email,
+      where: {
+        email,
+      },
     });
   }
 

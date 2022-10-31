@@ -1,11 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
-import { Role } from '../enums/role.enum';
+import { Column, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
 
-@Entity()
+@Entity('users')
 @Unique(['email'])
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
@@ -14,15 +13,31 @@ export class User {
   email: string;
 
   @Column()
-  password: string;
+  email_verified: boolean;
 
   @Column({ default: true })
   isActive: boolean;
 
+  @Column()
+  family_name: string;
+
+  @Column()
+  given_name: string;
+
   @Column({
-    type: 'enum',
-    enum: Role,
-    default: Role.standard,
+    length: 2,
   })
-  roles: Role[];
+  locale: string;
+
+  @Column()
+  nickname: string;
+
+  @Column()
+  picture: string;
+
+  @Column()
+  sub: string;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
