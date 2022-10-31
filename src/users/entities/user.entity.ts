@@ -9,8 +9,10 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
-  email: string;
+  @Column({
+    nullable: true,
+  })
+  email?: string;
 
   @Column()
   email_verified: boolean;
@@ -26,8 +28,9 @@ export class User {
 
   @Column({
     length: 2,
+    nullable: true,
   })
-  locale: string;
+  locale?: string;
 
   @Column()
   nickname: string;
